@@ -1,1 +1,1 @@
-{ "histogram": [], "percentage": 0.0}
+{ "histogram": [{"word": "security", "count": 370}, {"word": "cyber", "count": 220}, {"word": "computer", "count": 159}, {"word": "hack", "count": 67}, {"word": "cybersecurity", "count": 64}, {"word": "internet", "count": 38}, {"word": "threat", "count": 30}, {"word": "hacker", "count": 28}, {"word": "crime", "count": 22}, {"word": "breaches", "count": 22}], "percentage": 0.332}

@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 
+
 class KeywordExtractor:
     """
     KeywordExtractor class is responsible for extracting crime-related keywords from a given website
@@ -22,7 +23,6 @@ class KeywordExtractor:
         # Initialize the two automatons with data
         with open(KEYWORDS_PATH, encoding="utf-8", mode="r") as street_file:
             self.init_dictionary(street_file)
-
 
     def init_dictionary(self, keywords):
         """
@@ -43,7 +43,6 @@ class KeywordExtractor:
         :return: Amount of tokens obtained by a split
         """
         return len(html_string.split())
-
 
     def get_keywords(self, html_string: str) -> (list, set):
         """
@@ -66,7 +65,7 @@ class KeywordExtractor:
         for pair in list_of_keywords_idx:
             start = pair[0]
             end = pair[1]
-            word = html_string[start:end+1]
+            word = html_string[start:end + 1]
             set_of_keywords.add(word)
             list_of_keywords.append(word)
 
@@ -78,7 +77,6 @@ class KeywordExtractor:
                 self.histogram[item] = 1
 
         return (set_of_keywords, list_of_keywords)
-
 
     def to_JSON(self) -> str:
         """
@@ -95,7 +93,7 @@ class KeywordExtractor:
             hist_string += "{"
             hist_string += '"word": ' + '"' + str(item[0]) + '", '
             hist_string += '"count": ' + str(item[1])
-            if idx == len(sorted_x[:10])-1:
+            if idx == len(sorted_x[:10]) - 1:
                 hist_string += "}"
             else:
                 hist_string += "}, "
@@ -103,11 +101,11 @@ class KeywordExtractor:
 
         return hist_string
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     HIST_SIZE = 10
 
-    keyword_extractor = KeywordExtractor() # Instantiate the class
+    keyword_extractor = KeywordExtractor()  # Instantiate the class
 
     url = requests.get(url=sys.argv[1])
     soup = BeautifulSoup(url.content, 'lxml').text
@@ -118,5 +116,5 @@ if __name__ == '__main__':
     key_list, key_set = keyword_extractor.get_keywords(soup)
 
     with open("out.txt", mode="w", encoding="utf-8") as output_file:
-        output_file.write('{ "histogram": ' + keyword_extractor.to_JSON() + ', "percentage": ' + str(round(len(key_list)/tokens*100, 3)) + '}')
-
+        output_file.write('{ "histogram": ' + keyword_extractor.to_JSON() + ', "percentage": ' + str(
+            round(len(key_list) / tokens * 100, 3)) + '}')
